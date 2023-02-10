@@ -5,6 +5,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import java.util.List;
+
 /**
  * Hello world!
  */
@@ -18,21 +20,15 @@ public class App {
         try {
             session.beginTransaction();
 
-            // set
-            //Person person = session.get(Person.class, 2);
-            //person.setName("New");
+            // получаем список пользователей
+            List<Person> people = session.createQuery("FROM Person where name LIKE 'A%'").getResultList();
 
-            // delete
-            //Person person = session.get(Person.class, 2);
-            //session.delete(person);
-
-            // insert
-            Person person = new Person("Oleg", 19);
-            session.save(person);
+            for (Person person : people) {
+                System.out.println(person);
+            }
 
             session.getTransaction().commit();
 
-            System.out.println(person.getId());
         } finally {
             sessionFactory.close();
         }
