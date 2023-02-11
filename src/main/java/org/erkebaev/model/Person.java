@@ -1,9 +1,11 @@
 package org.erkebaev.model;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Person")
+@Table(name = "person")
 public class Person {
 
     @Id
@@ -16,6 +18,18 @@ public class Person {
 
     @Column(name = "age")
     private int age;
+
+    @OneToMany
+    private List<Item> items;
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                '}';
+    }
 
     public Person() {}
 
@@ -46,5 +60,13 @@ public class Person {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
 }
